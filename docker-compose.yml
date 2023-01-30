@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  app:
+    build: .
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - ENV=compose
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15.1
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=database
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=user
+    volumes:
+      - ./db-initial-scripts/:/docker-entrypoint-initdb.d
+
+

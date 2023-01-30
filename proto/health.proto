@@ -1,0 +1,17 @@
+syntax = "proto3";
+option go_package = "./proto";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+package health;
+
+service Health {
+  rpc Check(google.protobuf.Empty) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      get: "/health"
+    };
+  }
+
+  rpc Watch(google.protobuf.Empty) returns (stream google.protobuf.Empty);
+}
